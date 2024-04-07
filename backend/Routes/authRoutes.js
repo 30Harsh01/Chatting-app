@@ -2,7 +2,7 @@ import express from "express";
 import bcryptjs from 'bcryptjs'
 const router=express.Router()
 import User from "../Model/userSchema.js";
-
+import generateTokenAndSetCookie from "../utils/generateToken.js";
 
 //signup
 router.post("/signup",async (req,res)=>{
@@ -24,13 +24,15 @@ router.post("/signup",async (req,res)=>{
 
         //hashpassword
         const hashpassword=await bcryptjs.hash(password,10)
-        const newUser=await new User({
+        const newUser=new User({
             fullname,
             username,
             password:hashpassword,
             gender,
             profilePic:gender==='male'?boyProfilePic:girlProfilePic
         })
+        //genereate jwt token
+        generateTokenAndSetCookie(newUser._id,res)
         await newUser.save()
         res.status(201).json({
             _id:newUser._id,
