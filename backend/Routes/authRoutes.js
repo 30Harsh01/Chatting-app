@@ -47,4 +47,46 @@ router.post("/signup",async (req,res)=>{
     }
 })
 
+
+//signin
+router.post("/signin",async(req,res)=>{
+    try {
+        const {username,password} =req.body
+        // console.log(username,password)
+        const user=await User.findOne({username})
+        // console.log(user)
+        if(!user){
+            return res.status(404).json({message:"User not found"})
+        }
+        // console.log(user.password)
+        const comparepassword=await bcryptjs.compareSync(password,user?.password||"")
+        // console.log(comparepassword)
+        if(!comparepassword){
+            return res.status(400).json({message:"Invalid password or username"})
+        }
+
+        generateTokenAndSetCookie(user._id,res)
+
+        res.status(200).json({
+            _id:user._id,
+            fullname:user.fullname,
+            username:user.username,
+            profilePic:user.profilePic
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message:"Internal server error"})
+    }
+})
+
+router.post('/signout',async(req,res)=>{
+    try {
+        res.cookie('jwt',"",{maxAge:0})
+        res.status(200).json({message:"Logged out successfully"})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message:"Internal server error"})
+    }
+})
 export default router
