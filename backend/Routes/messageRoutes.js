@@ -26,7 +26,7 @@ router.post("/send/:id",protectroute,async(req,res)=>{
             receiverID,
             message
         })
-        console.log(conversation)
+        // console.log(conversation)
 
         if(newMessage){
             await conversation.message.push(newMessage._id)
