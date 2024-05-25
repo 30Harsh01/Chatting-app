@@ -9,7 +9,7 @@ import useListenMessage from '../Hooks/useListenMessage'
 export default function Messagewindow() {
     const lastMessageRef = useRef()
     const { messages, loading } = useGetMessages();
-    useListenMessage();
+    useListenMessage()
     // console.log(messages)
 
     const { selectedConversation, setSelectedConversation } = useConversation()
@@ -64,8 +64,8 @@ const NoChatSelected = () => {
     const user = authuser.fullname
     return (
         <div className="flex items-center justify-center w-full h-full">
-            <div className="px-4 text-center sm:text-lg md:text-xl text-gray-200-semibold flex flex-col items-center gap-2">
-                {/* <p>{`Hello ${captalizedfirstletter(user)}`}</p> */}
+            <div className="px-4 text-center sm:text-lg md:text-xl text-white flex flex-col items-center gap-2">
+                <p>{`Hello ${captalizedfirstletter(user)}`}</p>
                 <p>Select a chat to start</p>
                 <TiMessages className='text-3xl md:text-6xl text-center' />
             </div>

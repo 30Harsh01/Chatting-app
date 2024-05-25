@@ -57,7 +57,7 @@ const { simpleTime, simpleDate } = simplifyTime(timeString);
         </div>
       </div>
       <div className={`chat-bubble text-white bg-blue-500 ${bubbleBgColor}`}>{props.message.message}</div>
-      <div className='chat-footer opacity-50 text-xs flex gap-1 items-center'>{simpleTime}<br/>{simpleDate} </div>
+      <div className='chat-footer opacity-50 text-white text-xs flex gap-1 items-center'>{simpleTime}<br/>{simpleDate} </div>
       {/* <div className='chat-footer opacity-50 text-xs flex gap-1 items-center'></div> */}
 
     </div>
