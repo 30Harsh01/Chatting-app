@@ -9,22 +9,18 @@ const useGetConversations = () => {
         const getConversations = async () => {
             setLoading(true)
             try {
-                const res = await fetch('/api/user');
+                const res = await fetch('/api/user/hello');
                 const data = await res.json();
                 // console.log(data)
-                if (data.message) {
-                    console.log(data)
-                    toast.error(data.message)
-                    // return
+                if (data.error) {
+                    // console.log(data)
+                    toast.error(data.error)
+                    return
                 }
                     // Update the conversations state with the fetched data
                     setConversations(data)
-                if(data.error){ 
-                    console.log(error)
-                    throw new Error(data.error)
-                }
             } catch (error) {
-                console.log(error)
+                // console.log(error)
                 toast.error(error.message)
             } finally {
                 setLoading(false)

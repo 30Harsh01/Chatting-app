@@ -2,14 +2,15 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAuthContext } from '../context/authContex'
 import { useNavigate } from 'react-router-dom'
+import { IoReturnDownBack } from 'react-icons/io5'
 
 export default function useSignup() {
     const [loading, setLoading] = useState(false)
     const {authuser,setAuthuser}=useAuthContext()
     const navigate=useNavigate()
-    const signup = async ({ name, username, password, confirmpassword, gender }) => {
-        console.log(name, username, password, confirmpassword, gender)
-        const inputOk = await handleInputErrors({ name, username, password, confirmpassword, gender })
+    const signup = async ({ fullname, username, password, cpassword, gender }) => {
+        console.log(fullname, username, password,cpassword,gender)
+        const inputOk = await handleInputErrors({ fullname, username, password, cpassword, gender })
         if (!inputOk) return
 
         setLoading(true)
@@ -17,27 +18,23 @@ export default function useSignup() {
             const res = await fetch("/api/auth/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ fullname: name, username, password, cpassword: confirmpassword, gender })
+                body: JSON.stringify({ fullname, username, password, cpassword, gender })
             })
             const data = await res.json();
-            console.log(data)
-            if(data.message){
-                toast.error(data.message)
-            }
-            if (data.error) {
-                throw new Error(data.error)
+            // console.log(data)
+            if(data.error){
+                toast.error(data.error)
+                return
             }
             // Local storage
             await localStorage.setItem('chatt-user',JSON.stringify(data))
 
             // context
             await setAuthuser(data)
-            // console.log(authuser)
-            // if(authuser){
-            //     navigate('/')
-            // }
         } catch (error) {
+            console.log(error)
             toast.error(error.message)
+            return
         } finally {
             setLoading(false)
         }
@@ -45,16 +42,16 @@ export default function useSignup() {
     return { loading, signup }
 }
 
-const handleInputErrors = ({ name, username, password, confirmpassword, gender }) => {
-    if (!name || !username || !password || !confirmpassword || !gender) {
+const handleInputErrors = ({ name, username, password, cpassword, gender }) => {
+    if (!fullname || !username || !password || !cpassword || !gender) {
         toast.error("Please fill all the fields")
         return false
     }
-    if (password !== confirmpassword) {
+    if (password !== cpassword) {
         toast.error("Password doesn't match")
         return false
     }
-    if (name.length < 5) {
+    if (fullname.length < 5) {
         toast.error("Name is too short")
         return false
     }

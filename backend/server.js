@@ -5,22 +5,28 @@ import authRoutes from './Routes/authRoutes.js'
 import messageRoutes from './Routes/messageRoutes.js'
 import userRoutes from './Routes/userRoutes.js'
 import cookieParser from 'cookie-parser'
-const app=express()
-dotenv.config()
-const PORT=process.env.PORT||3000
+import { app, server } from './socket/socket.js'
+// import cors from 'cors'
+// app.use(cors())
+// const app=express()
+
+const PORT=5000
 app.use(express.json())
 app.use(cookieParser())
+dotenv.config()
 
 app.use('/api/auth',authRoutes)
 app.use('/api/message',messageRoutes)
 app.use('/api/user',userRoutes)
 
 
+// app.get('/',(req,res)=>{
+//     res.send("hello")
+// })
 
 
 
-
-app.listen(PORT,()=>{
+server.listen(PORT,()=>{
     conn()
     console.log(`listening to port ${PORT}`)
 })

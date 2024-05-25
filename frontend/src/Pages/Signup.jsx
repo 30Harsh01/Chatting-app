@@ -5,10 +5,10 @@ import useSignup from '../Hooks/useSignup'
 
 export default function Signup() {
   const [input,setInput]=useState({
-    name:"",
+    fullname:"",
     username:"",
     password:"",
-    confirmpassword:"",
+    cpassword:"",
     gender:""
   })
 
@@ -16,7 +16,7 @@ export default function Signup() {
 
   const handleOnSubmit=async(e)=>{
     e.preventDefault();
-    console.log(input)
+    // console.log(input)
     await signup(input)
 
   }
@@ -39,19 +39,19 @@ export default function Signup() {
           <label className='label p-2'>
             <span className='text-base label-text'>Name</span>
           </label>
-          <input   id='name'type="text" placeholder='Enter Name' className='w-full input input-bordered h-10' onChange={handleOnChange} />
+          <input id='fullname'type="text" placeholder='Enter Name' className='w-full input input-bordered h-10' onChange={handleOnChange} />
           <label className='label p-2'>
             <span className='text-base label-text'>Username</span>
           </label>
-          <input id='username'   type="text" placeholder='Enter Username' className='w-full input input-bordered h-10' onChange={handleOnChange} />
+          <input   id='username'   type="text" placeholder='Enter Username' className='w-full input input-bordered h-10' onChange={handleOnChange} />
           <label className='label p-2'>
             <span className='text-base label-text'>Password</span>
           </label>
-          <input type="password"   id='password' placeholder='**********' className='w-full input input-bordered h-10' onChange={handleOnChange} />
+          <input    type="password"   id='password' placeholder='**********' className='w-full input input-bordered h-10' onChange={handleOnChange} />
           <label className='label p-2'>
             <span className='text-base label-text'>Confirm Password</span>
           </label>
-          <input type="password" id='confirmpassword' placeholder='**********' className='w-full input input-bordered h-10' onChange={handleOnChange} />
+          <input   type="password" id='cpassword' placeholder='**********' className='w-full input input-bordered h-10' onChange={handleOnChange} />
           </div>
 
           {/* Gender checkbox goes here */}

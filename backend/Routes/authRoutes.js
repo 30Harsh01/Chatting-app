@@ -9,14 +9,14 @@ router.post("/signup",async (req,res)=>{
     try {
         const {fullname,username,password,cpassword,gender}=req.body
         if(!fullname||!username||!password||!cpassword||!gender){
-            return res.status(400).json({message:"All fields are reuired"})
+            return res.status(400).json({error:"All fields are reuired"})
         }
         if(cpassword!==password){
-            return res.status(400).json({message:"Password doesn't match"})
+            return res.status(400).json({error:"Password doesn't match"})
         }
         const usercheck=await User.findOne({username})
         if(usercheck){
-            return res.status(400).json({message:"Username already exist"})
+            return res.status(400).json({error:"Username already exist"})
         }
 
         const boyProfilePic=`https://avatar.iran.liara.run/public/boy?username=${username}`
@@ -31,9 +31,11 @@ router.post("/signup",async (req,res)=>{
             gender,
             profilePic:gender==='male'?boyProfilePic:girlProfilePic
         })
+        await newUser.save()
+
         //genereate jwt token
         generateTokenAndSetCookie(newUser._id,res)
-        await newUser.save()
+        
         res.status(201).json({
             _id:newUser._id,
             fullname:newUser.fullname,
@@ -43,7 +45,7 @@ router.post("/signup",async (req,res)=>{
 
     } catch (error) {
         console.log(error)
-        res.status(500).json({message:"Internal server error"})
+        res.status(500).json({error:"Internal server error"})
     }
 })
 
@@ -52,17 +54,17 @@ router.post("/signup",async (req,res)=>{
 router.post("/signin",async(req,res)=>{
     try {
         const {username,password} =req.body
-        // console.log(username,password)
+       
         const user=await User.findOne({username})
-        // console.log(user)
+    
         if(!user){
-            return res.status(404).json({message:"User not found"})
+            return res.status(404).json({error:"User not found"})
         }
-        // console.log(user.password)
+      
         const comparepassword=await bcryptjs.compareSync(password,user?.password||"")
-        // console.log(comparepassword)
+        
         if(!comparepassword){
-            return res.status(400).json({message:"Invalid password or username"})
+            return res.status(400).json({error:"Invalid password or username"})
         }
 
         generateTokenAndSetCookie(user._id,res)
@@ -76,7 +78,7 @@ router.post("/signin",async(req,res)=>{
 
     } catch (error) {
         console.log(error)
-        res.status(500).json({message:"Internal server error"})
+        res.status(500).json({error:"Internal server error"})
     }
 })
 
@@ -86,7 +88,7 @@ router.post('/signout',async(req,res)=>{
         res.status(200).json({message:"Logged out successfully"})
     } catch (error) {
         console.log(error)
-        res.status(500).json({message:"Internal server error"})
+        res.status(500).json({error:"Internal server error"})
     }
 })
 export default router

@@ -5,26 +5,27 @@ const protectRoute=async(req,res,next)=>{
     try {
         const token=req.cookies.jwt;
         if(!token){
-            return res.status(401).json({message:"no token provided"})
+            return res.status(401).json({error:"no token provided"})
         }
-
-        const decoded=jwt.verify(token,process.env.JWT_SECRET) 
+        
+        const decoded=jwt.verify(token,'Harsh123') 
         if(!decoded){
-            return res.status(401).json({message:"invalid token"})
+            return res.status(401).json({error:"invalid token"})
         }
 
         const user=await User.findById(decoded.userId).select("-password");
         if(!user){
-            res.status(404).json({messsage:"user not found"})
+            return res.status(404).json({error:"user not found"})
         }
         req.user=user
-        console.log(req.user)
         next()
 
     } catch (error) {
         console.log("error in protectRoute",error)
-        res.status(500).json({message:"Internal server error"})
+        res.status(500).json({error:"Internal server error"})
     }
 }
+
+
 
 export default protectRoute

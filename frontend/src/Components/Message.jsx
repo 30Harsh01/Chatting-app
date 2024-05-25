@@ -34,8 +34,8 @@ export default function Message(props) {
 // Example usage:
 const timeString = '2024-04-17T10:03:43.279Z';
 const { simpleTime, simpleDate } = simplifyTime(timeString);
-console.log(simpleTime); // Output: 10:03:43 AM
-console.log(simpleDate); // Output: 2024-04-17
+// console.log(simpleTime); // Output: 10:03:43 AM
+// console.log(simpleDate); // Output: 2024-04-17
 
 
 

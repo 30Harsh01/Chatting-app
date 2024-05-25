@@ -1,17 +1,28 @@
 import React from 'react'
 import useConversation from '../zustang/useConversation';
+import { useSocketContext } from '../context/socketContext';
 
 export default function Conversation(props) {
+  
+  
+
   const captalizedfirstletter=(s)=>{
     return s[0].toUpperCase() + s.slice(1);
   }
     const{selectedConversation,setSelectedConversation}= useConversation()
     const isSlected=selectedConversation?._id===props.conversation._id
+  
+    const {onlineUsers}=useSocketContext()
+    const isOnline=onlineUsers.includes(props.conversation._id)
+
+
+
+
   return (
     <>
     <div className='flex gap-2 items-center hover:bg-sky-500 rounded p-2 py-1 cursor-pointer'
     onClick={()=>setSelectedConversation(props.conversation)}>
-        <div className='avatar online'>
+        <div className={`avatar ${isOnline?"online":""}`}>
             <div className='w-12 rounded-full' >
                 <img src={props.conversation.profilePic} alt="Avatar" />
             </div>
