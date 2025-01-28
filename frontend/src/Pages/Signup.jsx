@@ -37,19 +37,19 @@ export default function Signup() {
         <form onSubmit={handleOnSubmit}>
           <div>
           <label className='label p-2'>
-            <span className='text-base label-text'>Name</span>
+            <span className='text-base label-text text-white'>Name</span>
           </label>
           <input id='fullname'type="text" placeholder='Enter Name' className='w-full input input-bordered h-10' onChange={handleOnChange} />
           <label className='label p-2'>
-            <span className='text-base label-text'>Username</span>
+            <span className='text-base label-text text-white'>Username</span>
           </label>
           <input   id='username'   type="text" placeholder='Enter Username' className='w-full input input-bordered h-10' onChange={handleOnChange} />
           <label className='label p-2'>
-            <span className='text-base label-text'>Password</span>
+            <span className='text-base label-text text-white'>Password</span>
           </label>
           <input    type="password"   id='password' placeholder='**********' className='w-full input input-bordered h-10' onChange={handleOnChange} />
           <label className='label p-2'>
-            <span className='text-base label-text'>Confirm Password</span>
+            <span className='text-base label-text text-white'>Confirm Password</span>
           </label>
           <input   type="password" id='cpassword' placeholder='**********' className='w-full input input-bordered h-10' onChange={handleOnChange} />
           </div>
@@ -60,7 +60,7 @@ export default function Signup() {
           <div>
             <button className=" btn btn-block mt-1 text-white bg-gradient-to-r from-pink-500 via-purple-600 to-red-700 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-3 py-2.5 text-center me-1 mb-1">Login</button>
           </div>
-          <Link to="/signin" className='text-sm hover:underline  mt-1 inline-block' > Already have an account?</Link>
+          <Link to="/signin" className='text-sm hover:underline  mt-1 inline-block text-white' > Already have an account?</Link>
         </form>
       </div>
       
