@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import useConversation from "../zustang/useConversation"
 import toast from "react-hot-toast"
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 const useGetMessages = () => {
     const [loading, setLoading] = useState(false)
@@ -11,7 +13,9 @@ const useGetMessages = () => {
             setLoading(true)
             try {
                 // Corrected: Added fetch function to make the HTTP request
-                const res = await fetch(`/api/message/${selectedConversation._id}`)
+                const res = await fetch(`${API_BASE_URL}/api/message/${selectedConversation._id}`,{
+                    credentials: "include",
+                })
                 const data = await res.json()
                 setMessages(data)
             } catch (err) {

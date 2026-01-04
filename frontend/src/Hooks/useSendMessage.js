@@ -1,6 +1,8 @@
 import { useState } from "react"
 import useConversation from "../zustang/useConversation"
 import toast from "react-hot-toast"
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 const useSendMessage=()=>{
     const[loading,setLoading]=useState(false)
@@ -9,10 +11,11 @@ const useSendMessage=()=>{
     const sendMessage=async(message)=>{
         setLoading(true)
         try {
-            const res=await fetch(`/api/message/send/${selectedConversation._id}`,{
+            const res=await fetch(`${API_BASE_URL}/api/message/send/${selectedConversation._id}`,{
                 method:'post',
                 headers:{'Content-Type':"application/json"},
-                body:JSON.stringify({message})
+                body:JSON.stringify({message}),
+                credentials: "include",
             })
             const data=await res.json()
             // if(data.message){

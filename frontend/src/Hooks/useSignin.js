@@ -2,6 +2,8 @@ import { useState } from "react";
 import toast from 'react-hot-toast';
 import { useAuthContext } from '../context/authContex';
 // import { useNavigate } from "react-router-dom";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 const useSignin = () => {
   const [loading, setLoading] = useState(false);
@@ -17,10 +19,11 @@ const useSignin = () => {
     }
 
     try {
-      const res = await fetch("/api/auth/signin", {
+      const res = await fetch(`${API_BASE_URL}/api/auth/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username, password }),
+        credentials: "include"
       });
       console.log(res)
       if (!res.ok) {

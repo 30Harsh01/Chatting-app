@@ -3,6 +3,8 @@ import { useAuthContext } from "./authContex";
 import io from 'socket.io-client';
 
 export const SocketContext = createContext();
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+console.log("API_BASE_URL",API_BASE_URL)
 
 export const useSocketContext=()=>{
     return useContext(SocketContext)
@@ -15,7 +17,7 @@ export const SocketContextProvider  = ({ children }) => {
 
     useEffect(() => {
         if (authuser) {
-            const socket = io('http://localhost:5000',{    //backend
+            const socket = io(API_BASE_URL,{    //backend
                 query:{
                     userId:authuser._id,
                 },

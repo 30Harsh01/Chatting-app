@@ -3,6 +3,8 @@ import toast from 'react-hot-toast'
 import { useAuthContext } from '../context/authContex'
 import { useNavigate } from 'react-router-dom'
 import { IoReturnDownBack } from 'react-icons/io5'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 export default function useSignup() {
     const [loading, setLoading] = useState(false)
@@ -15,10 +17,11 @@ export default function useSignup() {
 
         setLoading(true)
         try {
-            const res = await fetch("/api/auth/signup", {
+            const res = await fetch(`${API_BASE_URL}/api/auth/signup`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ fullname, username, password, cpassword, gender })
+                body: JSON.stringify({ fullname, username, password, cpassword, gender }),
+                credentials: "include"
             })
             const data = await res.json();
             // console.log(data)
