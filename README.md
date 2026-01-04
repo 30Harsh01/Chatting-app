@@ -5,6 +5,7 @@
 
 A lightweight **real-time chat application** built using **Node.js**, **Express**, **Socket.io**, and **React**.
 This project was created so that I and my friends could chat inside our **computer labs**, where mobile phones were not allowed—providing a simple, fast, and practical alternative for communication.
+**Hosted Link:** https://secretchatss.netlify.app/
 
 ---
 
